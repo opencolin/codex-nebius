@@ -83,12 +83,14 @@ name = "Nebius Token Factory"
 base_url = "https://api.tokenfactory.nebius.com/v1"
 env_key = "NEBIUS_API_KEY"
 wire_api = "responses"
+disable_tools = true
 
 [model_providers.nebius_fast]
 name = "Nebius Fast (Mistral)"
 base_url = "https://api.tokenfactory.nebius.com/v1"
 env_key = "NEBIUS_API_KEY"
 wire_api = "responses"
+disable_tools = true
 
 # ============================================
 # PROFILE DEFINITIONS
