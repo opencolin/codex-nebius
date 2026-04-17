@@ -97,21 +97,21 @@ wire_api = "responses"
 # Balanced - good for most tasks
 [profiles.nebius-token-factory]
 model_provider = "nebius_token_factory"
-model_name = "nebius/llama2-70b"
+model_name = "nebius/meta-llama/Llama-3.3-70B-Instruct"
 max_tokens = 4096
 temperature = 0.7
 
 # Fast - quick suggestions and completions
 [profiles.nebius-fast]
 model_provider = "nebius_fast"
-model_name = "nebius/mistral-7b"
+model_name = "nebius/google/Gemma-3-27b-it"
 max_tokens = 2048
 temperature = 0.5
 
 # Precise - detailed analysis and explanations
 [profiles.nebius-precise]
 model_provider = "nebius_token_factory"
-model_name = "nebius/codellama-34b"
+model_name = "nebius/Qwen/Qwen3-Coder-480B-A35B-Instruct"
 max_tokens = 8192
 temperature = 0.3
 

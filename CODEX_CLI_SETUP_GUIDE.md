@@ -1,18 +1,17 @@
 # Setting Up Codex CLI with Nebius Token Factory Models
 
-A complete guide to configure Codex CLI to use Nebius Token Factory models for local, private AI-assisted coding.
+A complete guide to configure Codex CLI to use Nebius Token Factory models for AI-assisted coding.
 
 ## Overview
 
-Codex CLI is a universal AI coding assistant that supports multiple model providers through a unified CLI interface. This guide shows how to integrate it with **Nebius Token Factory models** for secure, on-device inference without relying on cloud APIs.
+Codex CLI is a universal AI coding assistant that supports multiple model providers through a unified CLI interface. This guide shows how to integrate it with **Nebius Token Factory models** for a unified command-line coding experience.
 
 ### Why Use Codex CLI + Token Factory?
 
-- **Privacy**: Code and context stay on your machine
-- **Cost Control**: No per-token API charges
+- **Unified Interface**: One CLI for multiple model providers
 - **Flexibility**: Switch models instantly via configuration
-- **Offline Support**: Work without internet connection
-- **Local Performance**: Direct hardware access for inference
+- **Easy Setup**: Configuration-based, no plugins needed
+- **Multiple Profiles**: Different models for different tasks
 
 ## Prerequisites
 
@@ -119,21 +118,21 @@ Create profiles that reference your providers:
 # Default profile - balanced use
 [profiles.nebius-token-factory]
 model_provider = "nebius_token_factory"
-model_name = "nebius/llama2-70b"
+model_name = "nebius/meta-llama/Llama-3.3-70B-Instruct"
 max_tokens = 4096
 temperature = 0.7
 
 # Fast profile - quick suggestions
 [profiles.nebius-fast]
 model_provider = "nebius_fast"
-model_name = "nebius/mistral-7b"
+model_name = "nebius/google/Gemma-3-27b-it"
 max_tokens = 2048
 temperature = 0.5
 
 # Precise profile - detailed analysis
 [profiles.nebius-precise]
 model_provider = "nebius_token_factory"
-model_name = "nebius/codellama-34b"
+model_name = "nebius/Qwen/Qwen3-Coder-480B-A35B-Instruct"
 max_tokens = 8192
 temperature = 0.3
 ```
@@ -408,14 +407,19 @@ Install the Codex VSCode extension, then use:
 NEBIUS_API_KEY
 ```
 
-## Model Selection Guide
+## Available Token Factory Models
 
-| Model | Best For | Max Context | Speed |
-|-------|----------|-------------|-------|
-| **Mistral-7B** | Quick suggestions | 8K | Fast |
-| **CodeLLaMA-34B** | Complex code generation | 16K | Medium |
-| **Llama2-70B** | Detailed explanations | 4K | Slow |
-| **Llama2-13B** | Balanced use | 4K | Medium |
+Token Factory provides 40+ models. Here are some recommended for coding:
+
+| Model | Best For | Speed |
+|-------|----------|-------|
+| **Gemma-3-27b** | Quick suggestions | Fast |
+| **Llama-3.3-70B** | Balanced, all-purpose | Medium |
+| **Qwen3-Coder-480B** | Complex code generation | Slow |
+| **Kimi-K2.5** | Large context tasks | Medium |
+| **DeepSeek-V3.2** | Reasoning and analysis | Medium |
+
+See [Nebius Token Factory docs](https://nebius.ai/token-factory) for the complete model catalog.
 
 ## Advanced: Multiple Provider Setup
 
