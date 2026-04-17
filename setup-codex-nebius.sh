@@ -97,7 +97,7 @@ wire_api = "responses"
 # Balanced - good for most tasks
 [profiles.nebius-token-factory]
 model_provider = "nebius_token_factory"
-model_name = "nebius/meta-llama/Llama-3.3-70B-Instruct"
+model_name = "nebius/NousResearch/Hermes-4-405B"
 max_tokens = 4096
 temperature = 0.7
 

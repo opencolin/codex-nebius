@@ -118,7 +118,7 @@ Create profiles that reference your providers:
 # Default profile - balanced use
 [profiles.nebius-token-factory]
 model_provider = "nebius_token_factory"
-model_name = "nebius/meta-llama/Llama-3.3-70B-Instruct"
+model_name = "nebius/NousResearch/Hermes-4-405B"
 max_tokens = 4096
 temperature = 0.7
 
@@ -413,8 +413,8 @@ Token Factory provides 40+ models. Here are some recommended for coding:
 
 | Model | Best For | Speed |
 |-------|----------|-------|
+| **Hermes-4-405B** | Balanced, all-purpose (default) | Medium |
 | **Gemma-3-27b** | Quick suggestions | Fast |
-| **Llama-3.3-70B** | Balanced, all-purpose | Medium |
 | **Qwen3-Coder-480B** | Complex code generation | Slow |
 | **Kimi-K2.5** | Large context tasks | Medium |
 | **DeepSeek-V3.2** | Reasoning and analysis | Medium |
