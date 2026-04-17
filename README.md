@@ -17,11 +17,10 @@ codex "Write a Python function to validate email addresses"
 
 ## Features
 
-✨ **Local Privacy** — Code stays on your machine  
-⚡ **Zero API Costs** — No per-token fees  
 🔄 **Flexible** — Switch models instantly via configuration  
 🚀 **Fast Setup** — Automated configuration script  
 📦 **Three Profiles** — Fast, balanced, and precise models  
+🎯 **Unified CLI** — One interface for multiple LLM providers  
 
 ## What's Included
 
