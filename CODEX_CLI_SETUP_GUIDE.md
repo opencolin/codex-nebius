@@ -28,7 +28,7 @@ Before starting, ensure you have:
 
 ```bash
 # 1. Install Codex CLI
-npm install -g @shashikant86/codex-cli
+npm install -g @openai/codex
 
 # 2. Run the setup script
 curl -fsSL https://raw.githubusercontent.com/opencolin/nebius-skill/main/setup-codex-nebius.sh | bash
@@ -54,7 +54,7 @@ If you prefer to set up manually, follow these steps:
 
 ```bash
 # Via npm
-npm install -g @shashikant86/codex-cli
+npm install -g @openai/codex
 
 # Via Homebrew (if available)
 brew install codex-cli

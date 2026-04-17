@@ -13,7 +13,7 @@ echo -e "${BLUE}🚀 Codex CLI + Nebius Token Factory Setup${NC}\n"
 echo -e "${BLUE}Step 1: Checking Codex CLI installation...${NC}"
 if ! command -v codex &> /dev/null; then
     echo -e "${YELLOW}⚠️  Codex CLI not found. Install it with:${NC}"
-    echo "  npm install -g @shashikant86/codex-cli"
+    echo "  npm install -g @openai/codex"
     exit 1
 fi
 echo -e "${GREEN}✓ Codex CLI found: $(codex --version)${NC}\n"
