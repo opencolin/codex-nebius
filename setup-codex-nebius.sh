@@ -162,9 +162,9 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
         echo "  source $PROFILE_FILE"
         echo "  $0"
     else
-        echo "Testing connection to Nebius API..."
+        echo "Testing connection to Nebius Token Factory API..."
         if curl -s -H "Authorization: Bearer $NEBIUS_API_KEY" \
-            https://api.nebius.ai/v1/models > /dev/null 2>&1; then
+            https://api.tokenfactory.nebius.com/v1/models > /dev/null 2>&1; then
             echo -e "${GREEN}✓ Connection successful!${NC}"
         else
             echo -e "${YELLOW}⚠️  Connection test failed. Check your API key.${NC}"
