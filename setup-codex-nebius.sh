@@ -80,13 +80,13 @@ default_profile = "nebius-token-factory"
 
 [model_providers.nebius_token_factory]
 name = "Nebius Token Factory"
-base_url = "https://api.nebius.ai/v1"
+base_url = "https://api.tokenfactory.nebius.com/v1"
 env_key = "NEBIUS_API_KEY"
 wire_api = "responses"
 
 [model_providers.nebius_fast]
 name = "Nebius Fast (Mistral)"
-base_url = "https://api.nebius.ai/v1"
+base_url = "https://api.tokenfactory.nebius.com/v1"
 env_key = "NEBIUS_API_KEY"
 wire_api = "responses"
 
