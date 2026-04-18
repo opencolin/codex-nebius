@@ -8,12 +8,16 @@ Setup and configure [Codex CLI](https://github.com/shashikant86/codex-cli) to us
 # 1. Install Codex CLI
 npm install -g @openai/codex
 
-# 2. Run the setup script
-curl -fsSL https://raw.githubusercontent.com/opencolin/codex-nebius/main/setup-codex-nebius.sh | bash
+# 2. Download and run the setup script
+curl -fsSL https://raw.githubusercontent.com/opencolin/codex-nebius/main/setup-codex-nebius.sh -o setup-codex-nebius.sh
+chmod +x setup-codex-nebius.sh
+bash setup-codex-nebius.sh
 
 # 3. Start coding
 codex "Write a Python function to validate email addresses"
 ```
+
+**Tip:** Download the script first instead of piping directly to avoid corruption issues.
 
 ## Features
 
@@ -98,13 +102,28 @@ See [CODEX_CLI_SETUP_GUIDE.md](CODEX_CLI_SETUP_GUIDE.md) for detailed configurat
 
 ## Troubleshooting
 
+### "bash: line XXX: cho: command not found"
+
+This error occurs when the setup script is corrupted during download via pipe.
+
+**Solution:** Download the script first, then run it:
+```bash
+curl -fsSL https://raw.githubusercontent.com/opencolin/codex-nebius/main/setup-codex-nebius.sh -o setup-codex-nebius.sh
+chmod +x setup-codex-nebius.sh
+bash setup-codex-nebius.sh
+```
+
+Or clone the repository:
+```bash
+git clone https://github.com/opencolin/codex-nebius.git
+cd codex-nebius
+bash setup-codex-nebius.sh
+```
+
 ### "Codex CLI not found"
 ```bash
 npm install -g @openai/codex
 ```
-
-### "wire_api = responses is no longer supported"
-Make sure you're running the latest setup script. Use `wire_api = "responses"` (not "chat").
 
 ### "UNAUTHENTICATED" error
 Verify your Nebius API key:
@@ -118,10 +137,10 @@ source ~/.zshrc  # or ~/.bashrc
 ```
 
 ### Connection test failed
-Check connectivity to Nebius API:
+Check connectivity to Token Factory:
 ```bash
 curl -H "Authorization: Bearer $NEBIUS_API_KEY" \
-  https://api.nebius.ai/v1/models
+  https://api.tokenfactory.nebius.com/v1/models
 ```
 
 For more troubleshooting, see [CODEX_CLI_SETUP_GUIDE.md](CODEX_CLI_SETUP_GUIDE.md#troubleshooting).
