@@ -6,7 +6,7 @@ Setup and configure [Codex CLI](https://github.com/shashikant86/codex-cli) to us
 
 ```bash
 # 1. Install Codex CLI
-npm install -g @shashikant86/codex-cli
+npm install -g @openai/codex
 
 # 2. Run the setup script
 curl -fsSL https://raw.githubusercontent.com/opencolin/codex-nebius/main/setup-codex-nebius.sh | bash
@@ -40,7 +40,7 @@ codex "Write a Python function to validate email addresses"
 
 ## Prerequisites
 
-- **Codex CLI** — Install with `npm install -g @shashikant86/codex-cli`
+- **Codex CLI** — Install with `npm install -g @openai/codex`
 - **Nebius Token Factory API key** — Get from https://nebius.ai/
 - **bash or zsh** — For the setup script
 
@@ -73,9 +73,9 @@ codex -c max_tokens=1024 "Short answer"
 
 | Profile | Model | Use Case | Speed |
 |---------|-------|----------|-------|
-| **nebius-token-factory** (default) | Llama2-70B | Balanced, detailed responses | Medium |
-| **nebius-fast** | Mistral-7B | Quick suggestions and completions | Fast |
-| **nebius-precise** | CodeLLaMA-34B | Complex analysis and explanations | Slow |
+| **nebius-token-factory** (default) | Hermes-4-405B | Balanced, all-purpose | Medium |
+| **nebius-fast** | Gemma-3-27b | Quick suggestions and completions | Fast |
+| **nebius-precise** | Qwen3-Coder-480B | Complex coding and analysis | Slow |
 
 ## Configuration
 
@@ -84,13 +84,12 @@ After running the setup script, configuration is stored in `~/.codex/config.toml
 ```toml
 [model_providers.nebius_token_factory]
 name = "Nebius Token Factory"
-base_url = "https://api.nebius.ai/v1"
+base_url = "https://api.tokenfactory.nebius.com/v1/chat/completions"
 env_key = "NEBIUS_API_KEY"
-wire_api = "responses"
 
 [profiles.nebius-token-factory]
 model_provider = "nebius_token_factory"
-model_name = "nebius/llama2-70b"
+model_name = "nebius/NousResearch/Hermes-4-405B"
 max_tokens = 4096
 temperature = 0.7
 ```
@@ -101,7 +100,7 @@ See [CODEX_CLI_SETUP_GUIDE.md](CODEX_CLI_SETUP_GUIDE.md) for detailed configurat
 
 ### "Codex CLI not found"
 ```bash
-npm install -g @shashikant86/codex-cli
+npm install -g @openai/codex
 ```
 
 ### "wire_api = responses is no longer supported"
@@ -129,7 +128,7 @@ For more troubleshooting, see [CODEX_CLI_SETUP_GUIDE.md](CODEX_CLI_SETUP_GUIDE.m
 
 ## Resources
 
-- [Codex CLI GitHub](https://github.com/shashikant86/codex-cli) — Official Codex CLI repository
+- [Codex CLI GitHub](https://github.com/openai/codex) — Official Codex CLI repository
 - [Nebius Documentation](https://docs.nebius.com/) — Official Nebius docs
 - [Nebius Token Factory](https://nebius.ai/token-factory) — Token Factory service
 - [Codex Provider Configuration](https://www.morphllm.com/codex-provider-configuration) — Provider setup guide
