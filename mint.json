@@ -1,0 +1,89 @@
+{
+  "name": "Codex CLI + Nebius Token Factory",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.png",
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#07C983",
+    "dark": "#0D9373",
+    "background": {
+      "dark": "#090E1A"
+    },
+    "anchors": {
+      "from": "#0D9373",
+      "to": "#07C983"
+    }
+  },
+  "topbarCtaButton": {
+    "name": "Get Started",
+    "url": "https://github.com/opencolin/codex-nebius"
+  },
+  "anchors": [
+    {
+      "name": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/opencolin/codex-nebius"
+    },
+    {
+      "name": "Codex CLI",
+      "icon": "external-link",
+      "url": "https://github.com/openai/codex"
+    },
+    {
+      "name": "Nebius Token Factory",
+      "icon": "external-link",
+      "url": "https://nebius.com/token-factory"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "introduction",
+        "quick-start",
+        "installation"
+      ]
+    },
+    {
+      "group": "Setup & Configuration",
+      "pages": [
+        "setup/overview",
+        "setup/manual-configuration",
+        "setup/environment-variables",
+        "setup/testing-connection"
+      ]
+    },
+    {
+      "group": "Usage",
+      "pages": [
+        "usage/basic-commands",
+        "usage/profiles",
+        "usage/editor-integration",
+        "usage/git-integration"
+      ]
+    },
+    {
+      "group": "Reference",
+      "pages": [
+        "reference/models",
+        "reference/configuration",
+        "reference/api-endpoints"
+      ]
+    },
+    {
+      "group": "Troubleshooting",
+      "pages": [
+        "troubleshooting/common-issues",
+        "troubleshooting/authentication",
+        "troubleshooting/connection-errors"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "github": "https://github.com/opencolin/codex-nebius",
+    "twitter": "https://twitter.com/nebius_ai"
+  }
+}
