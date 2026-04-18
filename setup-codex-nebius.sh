@@ -182,7 +182,7 @@ echo "Next steps:"
 echo "  1. Load your shell profile (if you added the API key):"
 echo "     source $PROFILE_FILE" 
 echo
-echo "  2  Add your OPENAI_API_KEY to `~/.codex/auth.json`"
+echo "  2. Add your OPENAI_API_KEY to ~/.codex/auth.json"
 echo
 echo "  3. Try Codex with Token Factory:"
 echo "     codex 'Write a Python function to validate email'"
@@ -192,6 +192,6 @@ echo "     codex --profile nebius-fast 'Quick code'"
 echo "     codex --profile nebius-precise 'Detailed explanation'"
 echo
 echo "  5. Read the full guide:"
-echo "     https://github.com/opencolin/nebius-skill/blob/main/CODEX_CLI_SETUP_GUIDE.md
+echo "     https://github.com/opencolin/nebius-skill/blob/main/CODEX_CLI_SETUP_GUIDE.md"
 echo
 echo -e "${BLUE}Happy coding!${NC}"
