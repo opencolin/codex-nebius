@@ -1,0 +1,108 @@
+name: CI
+
+# Hermetic CI: no secrets, no network to Token Factory, and no real Codex CLI.
+# The test harness (tests/run.sh) sandboxes HOME and prepends a `codex` stub to
+# PATH itself, so Step 1 of setup-codex-nebius.sh passes without installing codex.
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ShellCheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck
+
+      - name: Run ShellCheck
+        # Fail on errors only; warnings and below are allowed so the suite stays
+        # green on style-level findings. Bump to a stricter severity here if the
+        # project wants to enforce warnings too.
+        run: shellcheck --severity=error setup-codex-nebius.sh tests/*.sh
+
+  test:
+    name: Sandboxed test suite
+    runs-on: ubuntu-latest
+    # Belt-and-suspenders: even though tests/run.sh overrides HOME per invocation,
+    # point HOME at a throwaway dir for the whole job so nothing can touch a real
+    # home directory on the runner.
+    env:
+      HOME: ${{ runner.temp }}/ci-home
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare sandbox HOME
+        run: mkdir -p "$HOME"
+
+      - name: Run test harness
+        # The harness stubs `codex` on PATH itself; do NOT install the real codex
+        # CLI here. Installing it would defeat the hermetic guarantee.
+        run: bash tests/run.sh
+
+  nav-guard:
+    name: mint.json nav guard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assert nav slugs and docs pages are in sync
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import sys
+
+          with open("mint.json", encoding="utf-8") as fh:
+              mint = json.load(fh)
+
+          # Collect every page slug from the navigation tree. Groups may nest
+          # (pages can themselves be group objects), so walk recursively.
+          slugs = []
+
+          def collect(pages):
+              for page in pages:
+                  if isinstance(page, str):
+                      slugs.append(page)
+                  elif isinstance(page, dict) and "pages" in page:
+                      collect(page["pages"])
+
+          for group in mint.get("navigation", []):
+              collect(group.get("pages", []))
+
+          # Every nav slug must map to docs/<slug>.md on disk.
+          missing_files = [s for s in slugs if not os.path.isfile(os.path.join("docs", s + ".md"))]
+
+          # Every docs/*.md page must appear in the navigation.
+          docs_pages = []
+          for root, _dirs, files in os.walk("docs"):
+              for name in files:
+                  if name.endswith(".md"):
+                      rel = os.path.relpath(os.path.join(root, name), "docs")
+                      docs_pages.append(rel[:-len(".md")])
+
+          slug_set = set(slugs)
+          orphan_docs = sorted(p for p in docs_pages if p not in slug_set)
+
+          ok = True
+          if missing_files:
+              ok = False
+              print("Nav slugs with no backing docs/<slug>.md file:")
+              for s in sorted(missing_files):
+                  print(f"  - {s} (expected docs/{s}.md)")
+
+          if orphan_docs:
+              ok = False
+              print("docs pages missing from mint.json navigation:")
+              for p in orphan_docs:
+                  print(f"  - docs/{p}.md")
+
+          if not ok:
+              sys.exit(1)
+
+          print(f"nav-guard OK: {len(slug_set)} nav slugs all map to docs/*.md and back.")
+          PY

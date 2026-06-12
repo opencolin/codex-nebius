@@ -1,10 +1,5 @@
 {
   "name": "Codex CLI + Nebius Token Factory",
-  "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
-  },
-  "favicon": "/favicon.png",
   "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
@@ -48,37 +43,21 @@
       ]
     },
     {
-      "group": "Setup & Configuration",
-      "pages": [
-        "setup/overview",
-        "setup/manual-configuration",
-        "setup/environment-variables",
-        "setup/testing-connection"
-      ]
-    },
-    {
       "group": "Usage",
       "pages": [
-        "usage/basic-commands",
-        "usage/profiles",
-        "usage/editor-integration",
-        "usage/git-integration"
+        "usage/basic-commands"
       ]
     },
     {
       "group": "Reference",
       "pages": [
-        "reference/models",
-        "reference/configuration",
-        "reference/api-endpoints"
+        "reference/models"
       ]
     },
     {
       "group": "Troubleshooting",
       "pages": [
-        "troubleshooting/common-issues",
-        "troubleshooting/authentication",
-        "troubleshooting/connection-errors"
+        "troubleshooting/common-issues"
       ]
     }
   ],

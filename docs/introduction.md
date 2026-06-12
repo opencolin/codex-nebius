@@ -42,7 +42,6 @@ codex "Write a Python function to validate email"
 
 - **[Quick Start](./quick-start)** — Get up and running in 5 minutes
 - **[Installation](./installation)** — Detailed installation instructions
-- **[Setup & Configuration](./setup/overview)** — Configure your provider and profiles
 - **[Usage Guide](./usage/basic-commands)** — Learn Codex CLI commands
 - **[Reference](./reference/models)** — Complete reference documentation
 - **[Troubleshooting](./troubleshooting/common-issues)** — Common issues and solutions
