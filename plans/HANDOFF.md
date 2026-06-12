@@ -10,7 +10,13 @@
 
 - Council (Phase 1): DONE — runId `wf_f52b2608-46c`, decided v1.0 baseline + v1.1/v1.2/v2.0.
 - Roadmap docs (Phase 2): DONE — see `plans/ROADMAP.md`, `plans/releases/*.md`, `plans/roadmap.json`.
-- v1.1 release workflow: _launching, runId recorded on next update_
+- v1.1 release workflow: RUNNING — runId `wf_3361321e-952` (background task `w4uhzuler`)
+- Reusable release script (patched): `~/.claude/projects/-Users-colin-Code-codex-codex-nebius/2b60d6ac-dd12-4c72-a5e7-74b559b601d9/workflows/scripts/release-implement-wf_643989a3-732.js`
+  — invoke per release with `Workflow({scriptPath, args: {version, worktreePath, items: [{id, files[]}]}})`;
+  agents read full specs from `plans/releases/<ver>.md` in the worktree.
+- GOTCHA for future agents: Workflow `args` can arrive as a JSON-encoded STRING inside the
+  script. The script now guards with `typeof args === 'string' ? JSON.parse(args) : args`.
+  First launch (runId `wf_643989a3-732`) crashed on this before any agent ran.
 
 ## Next action
 
