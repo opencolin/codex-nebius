@@ -5,6 +5,7 @@ name: CI
 # PATH itself, so Step 1 of setup-codex-nebius.sh passes without installing codex.
 on:
   push:
+    branches: [main]
   pull_request:
 
 jobs:
@@ -28,21 +29,22 @@ jobs:
   test:
     name: Sandboxed test suite
     runs-on: ubuntu-latest
-    # Belt-and-suspenders: even though tests/run.sh overrides HOME per invocation,
-    # point HOME at a throwaway dir for the whole job so nothing can touch a real
-    # home directory on the runner.
-    env:
-      HOME: ${{ runner.temp }}/ci-home
     steps:
       - uses: actions/checkout@v4
 
-      - name: Prepare sandbox HOME
-        run: mkdir -p "$HOME"
-
       - name: Run test harness
-        # The harness stubs `codex` on PATH itself; do NOT install the real codex
-        # CLI here. Installing it would defeat the hermetic guarantee.
-        run: bash tests/run.sh
+        # Belt-and-suspenders: even though tests/run.sh overrides HOME per
+        # invocation, point HOME at a throwaway dir so nothing can touch a real
+        # home directory on the runner. The `runner` context is only available
+        # at step level — putting this env on the job makes GitHub reject the
+        # whole workflow file ("Unrecognized named-value: 'runner'").
+        # The harness stubs `codex` on PATH itself; do NOT install the real
+        # codex CLI here. Installing it would defeat the hermetic guarantee.
+        env:
+          HOME: ${{ runner.temp }}/ci-home
+        run: |
+          mkdir -p "$HOME"
+          bash tests/run.sh
 
   nav-guard:
     name: mint.json nav guard

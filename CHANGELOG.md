@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- CI workflow was rejected by GitHub Actions ("Unrecognized named-value:
+  'runner'"): the `runner` context is unavailable in job-level `env`, so the
+  sandbox `HOME` is now set at step level. Also limited `on: push` to the
+  `main` branch so tag pushes no longer trigger duplicate runs.
+
 ## [2.0.0] - 2026-06-12
 
 The coherent 2.0: a breaking provider-config cleanup, a verified-fresh model
