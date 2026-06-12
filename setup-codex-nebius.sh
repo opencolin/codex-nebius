@@ -80,13 +80,15 @@ default_profile = "nebius-token-factory"
 
 [model_providers.nebius_token_factory]
 name = "Nebius Token Factory"
-base_url = "https://api.tokenfactory.nebius.com/v1/chat/completions"
+base_url = "https://api.tokenfactory.nebius.com/v1"
 env_key = "NEBIUS_API_KEY"
+wire_api = "responses"
 
 [model_providers.nebius_fast]
-name = "Nebius Fast (Mistral)"
-base_url = "https://api.tokenfactory.nebius.com/v1/chat/completions"
+name = "Nebius Fast"
+base_url = "https://api.tokenfactory.nebius.com/v1"
 env_key = "NEBIUS_API_KEY"
+wire_api = "responses"
 
 # ============================================
 # PROFILE DEFINITIONS
@@ -180,18 +182,16 @@ echo "Configuration file: $CONFIG_FILE"
 echo
 echo "Next steps:"
 echo "  1. Load your shell profile (if you added the API key):"
-echo "     source $PROFILE_FILE" 
+echo "     source $PROFILE_FILE"
 echo
-echo "  2. Add your OPENAI_API_KEY to ~/.codex/auth.json"
-echo
-echo "  3. Try Codex with Token Factory:"
+echo "  2. Try Codex with Token Factory:"
 echo "     codex 'Write a Python function to validate email'"
 echo
-echo "  4. Use different profiles:"
+echo "  3. Use different profiles:"
 echo "     codex --profile nebius-fast 'Quick code'"
 echo "     codex --profile nebius-precise 'Detailed explanation'"
 echo
-echo "  5. Read the full guide:"
-echo "     https://github.com/opencolin/nebius-skill/blob/main/CODEX_CLI_SETUP_GUIDE.md"
+echo "  4. Read the full guide:"
+echo "     https://github.com/opencolin/codex-nebius/blob/main/CODEX_CLI_SETUP_GUIDE.md"
 echo
 echo -e "${BLUE}Happy coding!${NC}"

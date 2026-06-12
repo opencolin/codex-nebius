@@ -1,6 +1,6 @@
 # Codex CLI + Nebius Token Factory
 
-Setup and configure [Codex CLI](https://github.com/shashikant86/codex-cli) to use [Nebius Token Factory](https://nebius.ai/token-factory) models for private, local AI-assisted coding.
+Setup and configure [Codex CLI](https://github.com/openai/codex) for AI-assisted coding using [Nebius Token Factory](https://nebius.com/token-factory) models over an OpenAI-compatible API.
 
 ## Quick Start
 
@@ -45,7 +45,7 @@ codex "Write a Python function to validate email addresses"
 ## Prerequisites
 
 - **Codex CLI** — Install with `npm install -g @openai/codex`
-- **Nebius Token Factory API key** — Get from https://nebius.ai/
+- **Nebius Token Factory API key** — Get from https://nebius.com/
 - **bash or zsh** — For the setup script
 
 ## Usage
@@ -149,7 +149,7 @@ For more troubleshooting, see [CODEX_CLI_SETUP_GUIDE.md](CODEX_CLI_SETUP_GUIDE.m
 
 - [Codex CLI GitHub](https://github.com/openai/codex) — Official Codex CLI repository
 - [Nebius Documentation](https://docs.nebius.com/) — Official Nebius docs
-- [Nebius Token Factory](https://nebius.ai/token-factory) — Token Factory service
+- [Nebius Token Factory](https://nebius.com/token-factory) — Token Factory service
 - [Codex Provider Configuration](https://www.morphllm.com/codex-provider-configuration) — Provider setup guide
 
 ## License
@@ -162,4 +162,4 @@ Found an issue or have suggestions? Please open an issue or submit a PR!
 
 ---
 
-**Part of the [nebius-skill](https://github.com/opencolin/nebius-skill) project** — AI Skills for Nebius infrastructure
+**Part of the [codex-nebius](https://github.com/opencolin/codex-nebius) project** — AI Skills for Nebius infrastructure
