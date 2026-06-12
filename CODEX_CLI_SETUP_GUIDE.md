@@ -17,7 +17,7 @@ Codex CLI is a universal AI coding assistant that supports multiple model provid
 
 Before starting, ensure you have:
 
-1. **Node.js** (v16+) - For running Codex CLI
+1. **Node.js 22+** - For running Codex CLI
 2. **Nebius Token Factory** - Access to Token Factory models
 3. **System Requirements**:
    - At least 8GB RAM (16GB recommended for larger models)
@@ -30,8 +30,12 @@ Before starting, ensure you have:
 # 1. Install Codex CLI
 npm install -g @openai/codex
 
-# 2. Run the setup script
-curl -fsSL https://raw.githubusercontent.com/opencolin/nebius-skill/main/setup-codex-nebius.sh | bash
+# 2. Download the setup script, then run it
+#    (download-then-run avoids the piped-download corruption that can
+#     produce a "cho: command not found" error)
+curl -fsSL -o setup-codex-nebius.sh \
+  https://raw.githubusercontent.com/opencolin/codex-nebius/main/setup-codex-nebius.sh
+bash setup-codex-nebius.sh
 
 # 3. Start using Codex
 codex "Write a Python function to validate email"
@@ -88,10 +92,12 @@ Token Factory is a Nebius service that provides:
 Codex CLI uses a configuration-based provider system. Edit `~/.codex/config.toml` and add:
 
 ```toml
-# Set default provider
+# Set default provider and profile
+default_provider = "nebius_token_factory"
 default_profile = "nebius-token-factory"
 
-# Define the Nebius Token Factory provider
+# Define the single Nebius Token Factory provider.
+# All profiles (balanced, fast, precise) share this one provider.
 # Codex follows a 3-tier config hierarchy:
 # 1. CLI flags override everything
 # 2. Profile settings override defaults
@@ -99,13 +105,9 @@ default_profile = "nebius-token-factory"
 
 [model_providers.nebius_token_factory]
 name = "Nebius Token Factory"
-base_url = "https://api.tokenfactory.nebius.com/v1/chat/completions"
+base_url = "https://api.tokenfactory.nebius.com/v1"
 env_key = "NEBIUS_API_KEY"
-
-[model_providers.nebius_fast]
-name = "Nebius Fast (Mistral)"
-base_url = "https://api.tokenfactory.nebius.com/v1/chat/completions"
-env_key = "NEBIUS_API_KEY"
+wire_api = "responses"
 ```
 
 ### Profile Configuration
@@ -122,7 +124,7 @@ temperature = 0.7
 
 # Fast profile - quick suggestions
 [profiles.nebius-fast]
-model_provider = "nebius_fast"
+model_provider = "nebius_token_factory"
 model_name = "nebius/google/Gemma-3-27b-it"
 max_tokens = 2048
 temperature = 0.5
@@ -178,18 +180,21 @@ codex "Write a hello world function in Python"
 
 Or if you used the setup script, the connection test was already performed during setup.
 
-## Advanced: CLI Overrides and Dynamic Provider Switching
+## Advanced: CLI Overrides and Dynamic Switching
 
 Codex CLI's configuration hierarchy allows you to override settings dynamically without editing `config.toml`:
 
-### Override Provider at Runtime
+### Override Settings at Runtime
 
 ```bash
-# Override model provider for a single command
-codex -c model_provider='"nebius_fast"' "Quick implementation"
+# Switch profiles for a single command
+codex --profile nebius-fast "Quick implementation"
 
-# This takes precedence over profile settings
-codex --profile nebius-precise -c model_provider='"nebius_fast"' "Use fast provider despite profile"
+# Override the model directly (all profiles share one provider)
+codex -c model_name='"nebius/google/Gemma-3-27b-it"' "Quick implementation"
+
+# CLI flags take precedence over profile settings
+codex --profile nebius-precise -c model_name='"nebius/google/Gemma-3-27b-it"' "Use a faster model despite the profile"
 
 # Override temperature and token limits
 codex -c temperature=0.3 -c max_tokens=1024 "Be precise"
@@ -203,16 +208,22 @@ codex -c temperature=0.3 -c max_tokens=1024 "Be precise"
 
 This hierarchy makes it easy to switch between providers on-the-fly without permanent configuration changes.
 
-## Advanced: Building Wrapper Libraries (Optional)
+## Advanced: Building Wrapper Libraries (Illustrative — out of scope for this project)
 
-If you want to build an NPM package or wrapper (similar to the `openclaw-nebius` tokenfactory-plugin), you can create a library to:
+> **Note:** This section is **illustrative only and out of scope for codex-nebius**.
+> This project is direct-setup only: the setup script writes a `config.toml` that
+> points Codex CLI straight at Nebius Token Factory — no wrapper library, NPM
+> package, or intermediary is required or maintained here. The sketch below is
+> kept purely as a reference for readers who maintain their own separate tooling.
+
+If you were to build an NPM package or wrapper (similar to the `openclaw-nebius` tokenfactory-plugin), such a library could:
 
 - Auto-generate `config.toml` for users
 - Provide TypeScript types for the Token Factory API
 - Handle authentication and credential management
 - Offer a CLI setup wizard
 
-Example wrapper structure:
+Illustrative wrapper structure:
 
 ```typescript
 // token-factory-provider.ts
@@ -304,7 +315,7 @@ codex-precise "Complex algorithm explanation"
 ```bash
 # Test endpoint connectivity
 curl -H "Authorization: Bearer $NEBIUS_API_KEY" \
-  https://api.nebius.ai/v1/models
+  https://api.tokenfactory.nebius.com/v1/models
 
 # Check if API key is set
 echo $NEBIUS_API_KEY
@@ -409,36 +420,44 @@ NEBIUS_API_KEY
 
 Token Factory provides 40+ models. Here are some recommended for coding:
 
-| Model | Best For | Speed |
-|-------|----------|-------|
-| **Hermes-4-405B** | Balanced, all-purpose (default) | Medium |
-| **Gemma-3-27b** | Quick suggestions | Fast |
-| **Qwen3-Coder-480B** | Complex code generation | Slow |
-| **Kimi-K2.5** | Large context tasks | Medium |
-| **DeepSeek-V3.2** | Reasoning and analysis | Medium |
+| Model | Model ID | Best For | Speed |
+|-------|----------|----------|-------|
+| **Hermes-4-405B** | `nebius/NousResearch/Hermes-4-405B` | Balanced, all-purpose (default) | Medium |
+| **Gemma-3-27b** | `nebius/google/Gemma-3-27b-it` | Quick suggestions | Fast |
+| **Qwen3-Coder-480B** | `nebius/Qwen/Qwen3-Coder-480B-A35B-Instruct` | Complex code generation | Slow |
+| **Kimi-K2.5** | `nebius/moonshot-ai/Kimi-K2.5` | Large context tasks | Medium |
+| **DeepSeek-V3.2** | `nebius/deepseek-ai/DeepSeek-V3.2` | Reasoning and analysis | Medium |
 
-See [Nebius Token Factory docs](https://nebius.ai/token-factory) for the complete model catalog.
+Model IDs should be verified against the current Token Factory catalog. See the
+[Nebius Token Factory docs](https://nebius.com/token-factory) for the complete model list.
 
-## Advanced: Multiple Provider Setup
+## Advanced: Multiple Profiles
+
+All profiles share the single `nebius_token_factory` provider; add as many
+task-specific profiles as you like by varying the model and parameters.
 
 ```toml
-# Mix Token Factory with other backends
+default_provider = "nebius_token_factory"
 default_profile = "nebius-token-factory"
 
+[model_providers.nebius_token_factory]
+name = "Nebius Token Factory"
+base_url = "https://api.tokenfactory.nebius.com/v1"
+env_key = "NEBIUS_API_KEY"
+wire_api = "responses"
+
+# Balanced default
 [profiles.nebius-token-factory]
-provider = "custom"
-model_name = "nebius/llama2-70b"
-api_endpoint = "https://api.nebius.ai/v1/completions"
-api_key_env = "NEBIUS_API_KEY"
+model_provider = "nebius_token_factory"
+model_name = "nebius/NousResearch/Hermes-4-405B"
 
-# Fallback to local Ollama if Token Factory is unavailable
-[profiles.local-ollama]
-provider = "ollama"
-model_name = "mistral"
-api_endpoint = "http://localhost:11434"
+# A reasoning-focused profile reusing the same provider
+[profiles.nebius-reasoning]
+model_provider = "nebius_token_factory"
+model_name = "nebius/deepseek-ai/DeepSeek-V3.2"
 
-# Switch between profiles based on availability
-# codex --profile local-ollama "fallback request"
+# Switch between profiles per command
+# codex --profile nebius-reasoning "complex analysis request"
 ```
 
 ## About the Setup Script
@@ -469,7 +488,7 @@ The [`setup-codex-nebius.sh`](setup-codex-nebius.sh) script automates the entire
 ## References & Resources
 
 ### Codex CLI Documentation
-- [Codex CLI: Running GPT OSS and Local Coding Models](https://dev.to/shashikant86/codex-cli-running-gpt-oss-and-local-coding-models-with-ollama-lm-studio-and-mlx-403g) — Original Dev.to article introducing Codex CLI architecture
+- "Codex CLI: Running GPT OSS and Local Coding Models with Ollama, LM Studio and MLX" by Shashikant Jagtap on [Dev.to](https://dev.to/shashikant86) — authored article introducing Codex CLI architecture
 - [Codex Provider Configuration Guide](https://www.morphllm.com/codex-provider-configuration) — Detailed provider setup patterns and configuration hierarchy
 - [Codex CLI Technical Reference](https://blakecrosley.com/guides/codex) — Comprehensive technical guide for Codex CLI
 
@@ -478,7 +497,7 @@ The [`setup-codex-nebius.sh`](setup-codex-nebius.sh) script automates the entire
 - [OpenCode Codex Provider Plugin](https://github.com/withakay/opencode-codex-provider) — Community example of a custom provider plugin
 
 ### Nebius Integration
-- [Nebius Token Factory Documentation](https://nebius.ai/token-factory) — Official Token Factory service documentation
+- [Nebius Token Factory Documentation](https://nebius.com/token-factory) — Official Token Factory service documentation
 - [OpenClaw Nebius Plugin](https://github.com/opencolin/openclaw-nebius/tree/main/tokenfactory-plugin) — Reference implementation for Token Factory integration with OpenClaw
 - [Nebius CLI Documentation](https://docs.nebius.com/cli/) — Official Nebius CLI reference
 
@@ -489,4 +508,4 @@ The [`setup-codex-nebius.sh`](setup-codex-nebius.sh) script automates the entire
 
 ---
 
-**Disclaimer:** This guide combines official documentation with community patterns and examples. Always verify with [official Codex CLI](https://github.com/shashikant86/codex-cli) and [Nebius](https://docs.nebius.com/) documentation for the latest updates.
+**Disclaimer:** This guide combines official documentation with community patterns and examples. Always verify with [official Codex CLI](https://github.com/openai/codex) and [Nebius](https://docs.nebius.com/) documentation for the latest updates.
