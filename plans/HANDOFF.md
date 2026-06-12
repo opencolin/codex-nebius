@@ -1,34 +1,48 @@
 # HANDOFF — live pipeline state
 
-> Updated by the orchestrator at each milestone/tick. Read `plans/ORCHESTRATION.md` first.
+> Updated by the orchestrator at each milestone/tick. Read `plans/ORCHESTRATION.md` first,
+> then `plans/ROADMAP.md` (especially its cross-release handoff notes), then the
+> per-release plan you are working on.
 
 ## Current phase
 
-**Phase 1 — PM council running** (workflow `pm-council-roadmap`)
+**Phase 3 — implementing v1.1** (workflow `release-implement`)
 
-- Council workflow runId: `wf_f52b2608-46c` (background task `w3rcftvip`)
-- Workflow script path: `~/.claude/projects/-Users-colin-Code-codex/2b60d6ac-dd12-4c72-a5e7-74b559b601d9/workflows/scripts/pm-council-roadmap-wf_f52b2608-46c.js`
-- Resume if interrupted: `Workflow({scriptPath: <above>, resumeFromRunId: "wf_f52b2608-46c"})`
-- Started: 2026-06-12T08:31:58Z
+- Council (Phase 1): DONE — runId `wf_f52b2608-46c`, decided v1.0 baseline + v1.1/v1.2/v2.0.
+- Roadmap docs (Phase 2): DONE — see `plans/ROADMAP.md`, `plans/releases/*.md`, `plans/roadmap.json`.
+- v1.1 release workflow: _launching, runId recorded on next update_
 
 ## Next action
 
-When the council workflow completes: take its returned roadmap JSON, write
-`plans/ROADMAP.md` + `plans/releases/<version>.md`, commit + push, then begin
-Phase 3 with the first release (see ORCHESTRATION.md Phase 3 runbook).
+When the v1.1 workflow completes with a passing verdict: commit in the worktree,
+merge `release/v1.1` into main with `--no-ff`, tag `v1.1`, push main + tags, remove
+the worktree, update this file and the ROADMAP status table, then start v1.2 the
+same way (Phase 3 runbook in ORCHESTRATION.md).
 
 ## Release status
 
 | Release | Status | Branch | Worktree | Tag pushed |
 |---------|--------|--------|----------|------------|
-| _(decided by council)_ | — | — | — | — |
+| v1.0 (baseline) | tagged @ `8801e31` | — | — | yes |
+| v1.1 | in progress | `release/v1.1` | `/Users/colin/Code/codex/worktrees/v1.1` | no |
+| v1.2 | pending | — | — | no |
+| v2.0 | pending | — | — | no |
 
 ## Repo state
 
-- main @ `4f2f98f` (+ plans/ commits), origin: https://github.com/opencolin/codex-nebius
-- No version tags yet; baseline tagging is a council decision.
-- Worktrees root: `/Users/colin/Code/codex/worktrees/` (empty)
+- origin: https://github.com/opencolin/codex-nebius
+- main: `4f2f98f` + plans commits (84f90e4, …)
+- Baseline tag: `v1.0` @ `8801e31` (annotated; deliberately excludes the
+  "fix"/"oops" commits and plans/ — see ROADMAP baseline section)
+- Worktrees root: `/Users/colin/Code/codex/worktrees/`
+
+## Workflow run registry
+
+| Workflow | runId | Status | Notes |
+|----------|-------|--------|-------|
+| pm-council-roadmap | `wf_f52b2608-46c` | completed | 11 agents; full output: `/private/tmp/claude-501/-Users-colin-Code-codex/2b60d6ac-dd12-4c72-a5e7-74b559b601d9/tasks/w3rcftvip.output` |
+| release-implement (v1.1) | _pending launch_ | — | args = v1.1 object from `plans/roadmap.json` |
 
 ## Heartbeat
 
-Last orchestrator tick: 2026-06-12T08:31:58Z (pipeline starting)
+Last orchestrator tick: 2026-06-12T08:48Z (council processed; starting v1.1)
