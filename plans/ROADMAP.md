@@ -15,8 +15,8 @@ Machine-readable source of truth: `plans/roadmap.json` (workflow args come from 
 
 | Release | Theme | Items | Status |
 |---------|-------|-------|--------|
-| [v1.1](releases/v1.1.md) | Config correctness and project identity | 3 | pending |
-| [v1.2](releases/v1.2.md) | Make it verifiable and keep the docs site buildable | 3 | pending |
+| [v1.1](releases/v1.1.md) | Config correctness and project identity | 3 | **merged, tagged v1.1** |
+| [v1.2](releases/v1.2.md) | Make it verifiable and keep the docs site buildable | 3 | in progress |
 | [v2.0](releases/v2.0.md) | The coherent 2.0 | 4 | pending |
 
 ## Chair rationale
