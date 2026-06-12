@@ -130,7 +130,13 @@ assert "config.toml is created under \$HOME/.codex" test -f "$HOME_A/.codex/conf
 CONFIG_A="$HOME_A/.codex/config.toml"
 
 # ----------------------------------------------------------------------------
-# (b) base_url has no '/chat/completions' and wire_api='responses' appears twice.
+# (b) base_url has no '/chat/completions' and wire_api='responses' appears once.
+#
+# v2.0 consolidated the two providers (nebius_fast was merged into
+# nebius_token_factory), so the generated config now has a SINGLE
+# [model_providers.*] block and therefore exactly one wire_api line. (The v1.1/
+# v1.2 two-provider layout had two; this assertion was updated for the
+# consolidation.)
 # ----------------------------------------------------------------------------
 if grep -q 'chat/completions' "$CONFIG_A"; then
     fail "base_url must NOT contain '/chat/completions'"
@@ -138,7 +144,7 @@ fi
 assert "no '/chat/completions' anywhere in generated config" true
 
 WIRE_COUNT=$(grep -c 'wire_api = "responses"' "$CONFIG_A")
-assert "wire_api = \"responses\" appears exactly twice (found $WIRE_COUNT)" test "$WIRE_COUNT" -eq 2
+assert "wire_api = \"responses\" appears exactly once (found $WIRE_COUNT)" test "$WIRE_COUNT" -eq 1
 
 # Also assert wire_api is never 'chat' (the value strict-config rejects).
 if grep -q 'wire_api *= *"chat"' "$CONFIG_A"; then

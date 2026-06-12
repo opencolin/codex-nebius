@@ -83,22 +83,51 @@ codex -c max_tokens=1024 "Short answer"
 
 ## Configuration
 
-After running the setup script, configuration is stored in `~/.codex/config.toml`:
+After running the setup script, configuration is stored in `~/.codex/config.toml`.
+All three profiles share a single `nebius_token_factory` provider:
 
 ```toml
+default_provider = "nebius_token_factory"
+default_profile = "nebius-token-factory"
+
 [model_providers.nebius_token_factory]
 name = "Nebius Token Factory"
-base_url = "https://api.tokenfactory.nebius.com/v1/chat/completions"
+base_url = "https://api.tokenfactory.nebius.com/v1"
 env_key = "NEBIUS_API_KEY"
+wire_api = "responses"
 
+# Balanced (default)
 [profiles.nebius-token-factory]
 model_provider = "nebius_token_factory"
 model_name = "nebius/NousResearch/Hermes-4-405B"
 max_tokens = 4096
 temperature = 0.7
+
+# Fast
+[profiles.nebius-fast]
+model_provider = "nebius_token_factory"
+model_name = "nebius/google/Gemma-3-27b-it"
+max_tokens = 2048
+temperature = 0.5
+
+# Precise
+[profiles.nebius-precise]
+model_provider = "nebius_token_factory"
+model_name = "nebius/Qwen/Qwen3-Coder-480B-A35B-Instruct"
+max_tokens = 8192
+temperature = 0.3
 ```
 
 See [CODEX_CLI_SETUP_GUIDE.md](CODEX_CLI_SETUP_GUIDE.md) for detailed configuration options.
+
+## Upgrading from 1.x
+
+v2.0 is a **breaking** release: the redundant `nebius_fast` provider was removed and
+all three profiles now reference the single `nebius_token_factory` provider. If you
+have an existing `~/.codex/config.toml` from a 1.x setup, just re-run the setup
+script — it backs up your old config to `config.toml.bak.<timestamp>` before writing
+the new layout. See the [Migration notes in the CHANGELOG](CHANGELOG.md#migration)
+for details.
 
 ## Troubleshooting
 

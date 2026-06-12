@@ -2,6 +2,12 @@
 
 Token Factory provides 40+ open-source language models. Here are the recommended models for different use cases.
 
+> **Models last verified: 2026-06-12.** Model availability, exact model IDs, and
+> context windows on Token Factory change over time. Always confirm a model ID
+> against the live catalog at [nebius.com/token-factory](https://nebius.com/token-factory)
+> before relying on it; entries flagged _"verify against the current catalog"_
+> below could not be confirmed at the date above.
+
 ## Quick Reference
 
 | Model | Best For | Size | Speed |
@@ -19,14 +25,14 @@ Best for complex problem-solving and detailed analysis.
 ### DeepSeek-V3.2
 ```
 Model ID: nebius/deepseek-ai/DeepSeek-V3.2
-Context: 163K tokens
+Context: ~163K tokens (verify against the current catalog)
 Best for: Advanced reasoning, complex algorithms
 ```
 
 ### Qwen3 Reasoning
 ```
 Model ID: nebius/Qwen/Qwen3-235B-A22B-Thinking-2507
-Context: Large
+Context: verify against the current catalog
 Best for: Deep analysis, research
 ```
 
@@ -37,15 +43,15 @@ Specialized for code generation and analysis.
 ### Qwen3 Coder
 ```
 Model ID: nebius/Qwen/Qwen3-Coder-480B-A35B-Instruct
-Context: Large
+Context: verify against the current catalog
 Best for: Code generation, debugging, refactoring
 Speed: Slow (high quality)
 ```
 
-### CodeLLaMA
+### Llama-3.3-70B (code suggestions)
 ```
 Model ID: nebius/meta-llama/Llama-3.3-70B-Instruct
-Context: 8K tokens
+Context: verify against the current catalog
 Best for: Code suggestions, completions
 Speed: Medium
 ```
@@ -55,7 +61,7 @@ Speed: Medium
 ### Hermes-4-405B (Default)
 ```
 Model ID: nebius/NousResearch/Hermes-4-405B
-Context: Very large
+Context: verify against the current catalog
 Best for: All tasks, balanced quality/speed
 Speed: Medium
 Recommended: Yes
@@ -64,7 +70,7 @@ Recommended: Yes
 ### Llama-3.3-70B
 ```
 Model ID: nebius/meta-llama/Llama-3.3-70B-Instruct
-Context: 8K tokens
+Context: verify against the current catalog
 Best for: General-purpose tasks
 Speed: Medium
 ```
@@ -73,10 +79,10 @@ Speed: Medium
 
 Optimized for speed with decent quality.
 
-### Gemma-3-27B
+### Gemma-3-27b-it
 ```
 Model ID: nebius/google/Gemma-3-27b-it
-Context: 8K tokens
+Context: verify against the current catalog
 Best for: Quick suggestions, fast iterations
 Speed: Fast
 ```
@@ -96,7 +102,7 @@ Best for analyzing large codebases or documents.
 ### Kimi-K2.5
 ```
 Model ID: nebius/moonshot-ai/Kimi-K2.5
-Context: 262K tokens
+Context: ~262K tokens (verify against the current catalog)
 Best for: Large file analysis, long documentation
 Speed: Medium
 ```
