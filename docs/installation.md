@@ -156,7 +156,7 @@ bash setup-codex-nebius.sh
 
 - Complete the [Quick Start](./quick-start) guide
 - Read about available [Token Factory Models](./reference/models)
-- Set up [Editor Integration](./usage/editor-integration)
+- Learn the [Basic Commands](./usage/basic-commands)
 
 ## Getting Help
 

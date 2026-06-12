@@ -95,9 +95,8 @@ codex -c max_tokens=500 "Keep it short"
 ## What's Next?
 
 - Learn about [all available models](./reference/models)
-- Configure [editor integration](./usage/editor-integration)
-- Set up [git integration](./usage/git-integration)
-- Explore [advanced profiles](./usage/profiles)
+- Explore the [basic commands](./usage/basic-commands)
+- Read the [installation guide](./installation) for detailed setup
 
 ## Troubleshooting
 
@@ -105,6 +104,6 @@ codex -c max_tokens=500 "Keep it short"
 
 **"Missing NEBIUS_API_KEY"** — Run `source ~/.zshrc` to load your API key, or run the setup script again.
 
-**Connection errors** — See [Authentication Troubleshooting](./troubleshooting/authentication).
+**Connection errors** — See [Common Issues](./troubleshooting/common-issues).
 
 For more help, check [Common Issues](./troubleshooting/common-issues).

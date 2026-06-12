@@ -182,12 +182,11 @@ codex -c temperature=0.8 "Generate test data"
 
 ## Next Steps
 
-- Learn about [Profiles](./profiles.md)
-- Set up [Editor Integration](./editor-integration.md)
-- Configure [Git Integration](./git-integration.md)
 - See all [Available Models](../reference/models.md)
+- Review the [Installation Guide](../installation.md)
+- Get going with the [Quick Start](../quick-start.md)
 
 ## Need Help?
 
 - Check [Common Issues](../troubleshooting/common-issues.md)
-- See [API Reference](../reference/api-endpoints.md)
+- See the [Models reference](../reference/models.md)

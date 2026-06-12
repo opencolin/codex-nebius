@@ -75,7 +75,6 @@ This is a known issue with Codex's tool serialization. Try:
 1. Use a different Codex profile
 2. Simplify your prompt
 3. Check your model name is correct
-4. See [Authentication Troubleshooting](./authentication.md)
 
 ### "timeout: request timed out"
 
@@ -192,10 +191,8 @@ npm install -g @openai/codex --force
 
 ## Still Having Issues?
 
-1. Check [Authentication Troubleshooting](./authentication.md)
-2. Check [Connection Troubleshooting](./connection-errors.md)
-3. Open an [issue on GitHub](https://github.com/opencolin/codex-nebius/issues)
-4. Include:
+1. Open an [issue on GitHub](https://github.com/opencolin/codex-nebius/issues)
+2. Include:
    - Your Codex CLI version: `codex --version`
    - Your Node.js version: `node --version`
    - The exact error message
